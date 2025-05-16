@@ -6,7 +6,7 @@ import MovieSearch from "./components/MovieInput/MovieSearch";
 import MovieResults from "./components/MovieResults/MovieResults";
 import Btn from "./components/BtnContinue/BtnContinue";
 
-const PageRouter = () => {
+const PageRouter = ({ defaultPage = 0 }: { defaultPage?: number }) => {
   const { pageId } = useParams();
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ const PageRouter = () => {
   const [isQueryValid, setIsQueryValid] = useState(false);
   const [resultsFound, setResultsFound] = useState(true);
 
-  const currentPage = Number(pageId) || 1;
+  const currentPage = Number(pageId) || defaultPage || 1;
 
   useEffect(() => {
     localStorage.setItem("query", query);
@@ -24,12 +24,11 @@ const PageRouter = () => {
 
   const handleContinue = () => {
     if (currentPage === 2 && !isQueryValid) return;
-
     if (currentPage === 3 && resultsFound) {
       localStorage.clear();
       setQuery("");
       setGenre("");
-      navigate("/page/1");
+      navigate("/");
       return;
     }
 
@@ -55,12 +54,12 @@ const PageRouter = () => {
   };
 
   const isButtonActive =
-    (currentPage === 1 && typeof genre === "string" && genre.trim() !== "") ||
+    (currentPage === 1 && genre.trim() !== "") ||
     (currentPage === 2 && query.trim() !== "" && isQueryValid);
 
   return (
     <>
-      {pages[currentPage] ?? <GenreList genre={genre} setGenre={setGenre} />}
+      {pages[currentPage] ?? pages[1]}
       <Btn
         isActive={isButtonActive}
         onContinue={handleContinue}
