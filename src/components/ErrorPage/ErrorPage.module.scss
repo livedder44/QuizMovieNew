@@ -1,0 +1,43 @@
+@use "/src/styles/Variables.scss" as *;
+@use "/src/styles/Mixins.scss" as *;
+@use "/src/styles/Fonts.scss" as *;
+
+.wrapper, .message{
+    @include flex(space-between, center, column, 0);
+    text-align: center;
+}
+
+
+.wrapper{
+    @include max-width (768px, 16px 120px);
+    .head {
+        font-size: 135px;
+    }
+    .text {
+        font-size: 32px;
+        line-height: 36px;   }
+    @media (max-width: 768px) {
+        @include max-width(768px, 20px 40px);
+        }
+    
+
+        @media (max-width: 480px) {
+            @include max-width(480px, 16px 20px);    
+        }
+}
+
+
+
+@media (max-width: 480px) {
+    .movieItem {
+        padding: 44px 48px;
+
+    }
+
+    .movieItem>img {
+        margin-bottom: 24px;
+    }
+
+
+
+}

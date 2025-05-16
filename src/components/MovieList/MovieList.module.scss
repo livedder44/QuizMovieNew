@@ -1,0 +1,55 @@
+@use "/src/styles/Variables.scss" as *;
+@use "/src/styles/Mixins.scss" as *;
+@use "/src/styles/Fonts.scss" as *;
+
+.movieList {
+    @include max-width (768px, 16px 120px);
+    @media (max-width: 768px) {
+            @include max-width(768px, 20px 40px);
+        }
+    
+    
+        @media (max-width: 480px) {
+            @include max-width(480px, 16px 20px);
+        }
+}
+
+.movie-results {
+    justify-content: normal;
+}
+
+.movieItem {
+    @include flex(center, center, column, 0);
+    box-sizing: border-box;
+    text-align: center;
+    border-bottom: 1px solid $color-border-default;
+    width: 100%;
+    margin: 64px auto;
+
+
+}
+.poster {
+    @include max-width (304px, 0 0);
+    border-radius: 16px;
+    margin-bottom: 40px;
+
+
+    @media (max-width: 768px) {
+        @include max-width(304px, 0 0);
+    
+    }
+
+
+    @media (max-width: 480px) {
+        @include max-width(199px, 0 0);
+    }
+}
+
+.title {
+    margin: 0 0 8px 0;
+}
+
+.movieItem:last-child {
+    border: none;
+}
+

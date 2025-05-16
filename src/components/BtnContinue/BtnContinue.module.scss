@@ -1,0 +1,38 @@
+@use "/src/styles/Variables.scss" as *;
+@use "/src/styles/Mixins.scss" as *;
+@use "/src/styles/Fonts.scss" as *;
+
+.btnContainer {
+    background-color: $color-surface;
+    position: sticky;
+    bottom: 0;
+    left: 50%;
+    z-index: 1000;
+    @include max-width(768px, 20px 120px);
+    @media (max-width: 768px) {
+        @include max-width(768px, 20px 40px);
+        }
+    
+
+        @media (max-width: 480px) {
+            @include max-width(480px, 16px 20px);    
+        }
+}
+
+.btn {
+    @include btn-input-list-size;
+    border: none;
+    background-color: $color-accent;
+    color: $color-surface;
+
+}
+
+.btn-noactive {
+    background-color: rgba($color-accent, 0.5);
+    cursor: not-allowed;
+}
+
+.btn-active {
+    background-color: $color-accent;
+    cursor: pointer;
+}

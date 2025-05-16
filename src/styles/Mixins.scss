@@ -1,0 +1,22 @@
+
+
+
+@mixin flex($justify: center, $align: center, $direction: row, $gap: 0) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    flex-direction: $direction;
+    gap: $gap;
+}
+
+
+@mixin btn-input-list-size {
+    height: 56px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+@mixin max-width ($max-width: 768px, $padding:16px 120px){
+    max-width: $max-width;
+    padding: $padding;
+}

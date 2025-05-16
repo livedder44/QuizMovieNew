@@ -1,0 +1,34 @@
+@use "/src/styles/Variables.scss" as *;
+@use "/src/styles/Mixins.scss" as *;
+@use "/src/styles/Fonts.scss" as *;
+
+.header {
+    @include flex(start, stretch, column, 16px);
+    background: url(../../assets/img/background.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    margin: 0 auto;
+    position: sticky;
+    top: 0;
+    left: 50%;
+   
+    @include max-width (768px, 16px 120px 50px);
+    @media (max-width: 768px) {
+            @include max-width(768px, 20px 40px 50px);
+        }
+    
+    
+        @media (max-width: 480px) {
+            @include max-width(480px, 16px 20px 50px);
+        }
+    
+    .top {
+        @include flex(space-between, center, row, 0);
+        .right {
+            @include flex(space-between, center, row, 24px);
+        }
+    }
+}

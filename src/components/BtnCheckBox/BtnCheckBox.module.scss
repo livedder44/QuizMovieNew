@@ -1,0 +1,24 @@
+@use "/src/styles/Variables.scss" as *;
+@use "/src/styles/Mixins.scss" as *;
+
+.checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba($color-text-primary, 0.6);
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: $color-accent;
+    border-color: $color-accent;
+}
+
+.check {
+    color: $color-surface;
+    font-size: 14px;
+    line-height: 1;
+    transform: translateY(-1px);
+    }

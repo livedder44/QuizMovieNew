@@ -1,0 +1,9 @@
+[
+    { "id": "drama", "icon": "🎭", "label": "Drama" },
+    { "id": "comedy", "icon": "🤹", "label": "Comedy" },
+    { "id": "action", "icon": "🥷", "label": "Action" },
+    { "id": "thriller", "icon": "🧟", "label": "Thriller" },
+    { "id": "sci-fi", "icon": "👨‍🔬", "label": "Science fiction" }
+
+  ]
+  

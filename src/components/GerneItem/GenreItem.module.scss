@@ -1,0 +1,24 @@
+@use "/src/styles/Variables.scss" as *;
+@use "/src/styles/Mixins.scss" as *;
+@use "/src/styles/Fonts.scss" as *;
+
+.item {
+    @include btn-input-list-size;
+    @include flex(space-between, center, row, 0);
+    border: 1px solid $color-border-default;
+    height: 64px;
+    padding: 20px 40px;
+    
+}
+
+.left {
+    @include flex(center, center, row, 16px);
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.label {
+    font-weight: bold;
+}

@@ -1,0 +1,54 @@
+@use "/src/styles/Variables.scss" as *;
+@use "/src/styles/Mixins.scss" as *;
+@use "/src/styles/Fonts.scss" as *;
+
+.movieSearch {
+    @include max-width (768px, 16px 120px);
+        @media (max-width: 768px) {
+        @include max-width(768px, 20px 40px);
+        }
+    
+
+        @media (max-width: 480px) {
+            @include max-width(480px, 16px 20px);    
+        }
+}
+.movie-search-input {
+    
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 24px;
+    border-radius: 8px;
+    border: 2px solid $color-border-default;
+    transition: border-color 0.3s;
+    margin-bottom: 8px;
+
+    &:focus {
+        border-color: $color-accent;
+        outline: none;
+    }
+
+    &.error {
+        border-color: $color-error;
+    }
+}
+
+.title {
+    margin-bottom: 40px;
+}
+
+.error-message {
+    color: $color-error;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.error-text {
+    color: $color-error;
+    font-size: 14px;
+    min-height: 20px;
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible; }
