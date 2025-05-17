@@ -13,11 +13,12 @@
     .head {
         font-size: 135px;
     }
-    .text {
-        font-size: 32px;
-        line-height: 36px;   }
+    .text { 
+        @include font-black(32px, 1.6,0);
+      }
     @media (max-width: 768px) {
         @include max-width(768px, 20px 40px);
+        @include font-black(24px, 1.5, 0);
         }
     
 
