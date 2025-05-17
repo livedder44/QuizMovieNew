@@ -47,8 +47,19 @@
 
 .title {
     margin: 0 0 8px 0;
+    @include font-black(32px, 1.6, 0);
+    @media (max-width: 768px) {
+        @include font-black(32px, 1.6, 0);
+    
+        }
+        @media (max-width: 480px) {
+            @include font-black(24px, 1.6, 0);
+        }
 }
-
+.year {
+    @include font-regular(16px, 1.5, 0);
+    margin-bottom: 8px;
+}
 .movieItem:last-child {
     border: none;
 }

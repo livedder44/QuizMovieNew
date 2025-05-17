@@ -2,6 +2,7 @@ import genres from "./GenreList.json";
 import GenreItem from "../GerneItem/GenreItem";
 import styles from "./GenreList.module.scss";
 
+
 type Genre = {
   id: string;
   icon: string;

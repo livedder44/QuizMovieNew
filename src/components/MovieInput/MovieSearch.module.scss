@@ -22,7 +22,10 @@
     border: 2px solid $color-border-default;
     transition: border-color 0.3s;
     margin-bottom: 8px;
-
+    @include font-regular(16px, 1.5, 0);
+    &::placeholder {
+        @include font-regular(16px, 1.5, 0);
+    }
     &:focus {
         border-color: $color-accent;
         outline: none;
@@ -35,19 +38,21 @@
 
 .title {
     margin-bottom: 40px;
+    @include font-black(24px, 1.5, 0);
 }
 
-.error-message {
-    color: $color-error;
-    font-size: 14px;
-    margin-top: 8px;
-}
+// .error-message {
+//     color: $color-error;
+//     margin-top: 8px;
+//     @include font-regular(14px, 1.5, 0);
+// }
 
 .error-text {
     color: $color-error;
     font-size: 14px;
     min-height: 20px;
     visibility: hidden;
+    @include font-regular(14px, 1.5, 0);
 }
 
 .visible {

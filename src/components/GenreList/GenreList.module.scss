@@ -16,5 +16,10 @@
     
         @media (max-width: 480px) {
             @include max-width(480px, 16px 20px);
+            row-gap: 16px;
         }
+}
+
+.genreHead {
+    @include font-black(24px, 1.5, 0);
 }

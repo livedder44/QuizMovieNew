@@ -8,11 +8,16 @@
     border: 1px solid $color-border-default;
     height: 64px;
     padding: 20px 40px;
+
+    @media (max-width: 480px) { 
+        padding: 16px 24px;
+    }
     
 }
 
 .left {
     @include flex(center, center, row, 16px);
+    
 }
 
 .icon {
@@ -20,5 +25,5 @@
 }
 
 .label {
-    font-weight: bold;
+    @include font-regular(16px, 1.5, 0);
 }
