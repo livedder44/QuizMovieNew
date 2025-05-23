@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import styles from "./App.module.scss";
 import Header from "./components/Header/Header";
 import PageRouter from "./PageRouter";
 
 function App() {
   return (
-    <Router basename="/QuizMovieNew">
+    <Router>
       <div className={styles.wrapper}>
         <Header />
         <Routes>
