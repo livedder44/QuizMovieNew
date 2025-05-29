@@ -1,9 +1,10 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Routes, Route, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import GenreList from "./components/GenreList/GenreList";
 import MovieSearch from "./components/MovieInput/MovieSearch";
 import MovieResults from "./components/MovieResults/MovieResults";
+import MovieDetail from "./components/MovieDetail/MovieDetail";
 import Btn from "./components/BtnContinue/BtnContinue";
 
 const PageRouter = ({ defaultPage = 0 }: { defaultPage?: number }) => {
@@ -35,37 +36,44 @@ const PageRouter = ({ defaultPage = 0 }: { defaultPage?: number }) => {
     navigate(`/page/${currentPage + 1}`);
   };
 
-  const pages: Record<number, JSX.Element | undefined> = {
-    1: <GenreList genre={genre} setGenre={setGenre} />,
-    2: (
-      <MovieSearch
-        query={query}
-        setQuery={setQuery}
-        onValidationChange={setIsQueryValid}
-        onEnter={handleContinue}
-      />
-    ),
-    3: (
-      <MovieResults
-        movieTitle={query}
-        onResults={(found) => setResultsFound(found)}
-      />
-    ),
-  };
-
   const isButtonActive =
     (currentPage === 1 && genre.trim() !== "") ||
     (currentPage === 2 && query.trim() !== "" && isQueryValid);
 
   return (
     <>
-      {pages[currentPage] ?? pages[1]}
+      {currentPage === 1 && <GenreList genre={genre} setGenre={setGenre} />}
+      {currentPage === 2 && (
+        <MovieSearch
+          query={query}
+          setQuery={setQuery}
+          onValidationChange={setIsQueryValid}
+          onEnter={handleContinue}
+        />
+      )}
+      {currentPage === 3 && (
+        <Routes>
+          <Route
+            index
+            element={
+              <MovieResults
+                movieTitle={query}
+                onResults={(found) => setResultsFound(found)}
+              />
+            }
+          />
+          <Route path="movie/:id" element={<MovieDetail />} />
+        </Routes>
+      )}
+
       <Btn
         isActive={isButtonActive}
         onContinue={handleContinue}
         isHidden={currentPage === 3 && !resultsFound}
         label={currentPage === 3 && resultsFound ? "Complete" : "Continue"}
       />
+
+      {currentPage === 3 && <Outlet />}
     </>
   );
 };

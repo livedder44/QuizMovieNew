@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import MovieList from "../MovieList/MovieList";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import { useNavigate } from "react-router-dom";
+import styles from "./MovieResults.module.scss";
 
 type Props = {
   movieTitle: string;
@@ -12,7 +14,7 @@ const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 const MovieResults = ({ movieTitle, onResults }: Props) => {
   const [movies, setMovies] = useState<any[]>([]);
   const [error, setError] = useState(false);
-
+  const navigate = useNavigate(); 
   useEffect(() => {
     if (!movieTitle) return;
 
@@ -34,8 +36,17 @@ const MovieResults = ({ movieTitle, onResults }: Props) => {
       });
   }, [movieTitle, onResults]);
 
+  const handleMovieClick = (id: string) => {
+    navigate(`/movie/${id}`);
+  };
+
   if (error) return <ErrorPage />;
-  return <MovieList movies={movies} />;
+
+  return (
+    <div className={styles.movieResults}>
+      <MovieList movies={movies} onMovieClick={handleMovieClick} /> {}
+    </div>
+  );
 };
 
 export default MovieResults;
