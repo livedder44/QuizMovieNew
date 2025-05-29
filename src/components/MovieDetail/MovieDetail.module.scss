@@ -67,3 +67,7 @@
     width: 100%;
     padding: 6px;
 }
+.strong {
+    @include font-semibold(18px, 1.5, 0);
+    margin-right: 6px;
+}

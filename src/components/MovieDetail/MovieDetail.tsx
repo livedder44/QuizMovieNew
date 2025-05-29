@@ -1,40 +1,68 @@
+// src/components/MovieDetail/MovieDetail.tsx
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./MovieDetail.module.scss";
 import Counter from "../Counter/Counter";
 
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
+interface Movie {
+  Title: string;
+  Year: string;
+  Director: string;
+  Plot: string;
+  Actors: string;
+  Poster: string;
+}
+
 const MovieDetail = () => {
   const { id } = useParams();
+  const [movie, setMovie] = useState<Movie | null>(null);
 
-  const storedPage = sessionStorage.getItem("lastPage");
-  const currentPage = storedPage ? parseInt(storedPage, 10) : 1;
-  const totalPages = 3;
-
-  const [movie, setMovie] = useState<any>(null);
+  const currentPage = useMemo(() => {
+    const storedPage = sessionStorage.getItem("lastPage");
+    return storedPage ? parseInt(storedPage, 10) : 1;
+  }, []);
 
   useEffect(() => {
-    fetch(`https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => setMovie(data));
+    const fetchMovieDetails = async () => {
+      try {
+        const res = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`);
+        const data = await res.json();
+        setMovie(data);
+      } catch (error) {
+        console.error("Failed to fetch movie details", error);
+      }
+    };
+
+    fetchMovieDetails();
   }, [id]);
 
   if (!movie) return <div>Loading...</div>;
 
-  const actors = movie.Actors?.split(", ") || [];
+  const actorsArray = movie.Actors?.split(", ") || [];
   const displayedActors =
-    actors.length > 3 ? actors.slice(0, 3).join(", ") + " and others" : movie.Actors;
+    actorsArray.length > 2
+      ? actorsArray.slice(0, 3).join(", ") + " and others"
+      : movie.Actors;
 
   return (
     <div className={styles.movieItem}>
-      <Counter currentPage={currentPage} totalPages={totalPages} />
+      <Counter currentPage={currentPage} totalPages={3} />
       <img src={movie.Poster} alt={movie.Title} className={styles.poster} />
       <h3 className={styles.title}>{movie.Title}</h3>
-      <p className={styles.year}><strong>Year:</strong> {movie.Year}</p>
-      <p className={styles.director}><strong>Director:</strong> {movie.Director}</p>
-      <p className={styles.plot}><strong>Plot:</strong> {movie.Plot}</p>
-      <p className={styles.actors}><strong>Actors:</strong> {displayedActors}</p>
+      <p className={styles.year}>
+        <strong className={styles.strong}>Year:</strong> {movie.Year}
+      </p>
+      <p className={styles.director}>
+        <strong className={styles.strong}>Director:</strong> {movie.Director}
+      </p>
+      <p className={styles.plot}>
+        <strong className={styles.strong}>Plot:</strong> {movie.Plot}
+      </p>
+      <p className={styles.actors}>
+        <strong className={styles.strong}>Actors:</strong> {displayedActors}
+      </p>
     </div>
   );
 };
