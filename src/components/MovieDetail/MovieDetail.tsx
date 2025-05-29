@@ -1,8 +1,7 @@
 // src/components/MovieDetail/MovieDetail.tsx
 import { useParams } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./MovieDetail.module.scss";
-import Counter from "../Counter/Counter";
 
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
@@ -18,11 +17,6 @@ interface Movie {
 const MovieDetail = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<Movie | null>(null);
-
-  const currentPage = useMemo(() => {
-    const storedPage = sessionStorage.getItem("lastPage");
-    return storedPage ? parseInt(storedPage, 10) : 1;
-  }, []);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -48,7 +42,6 @@ const MovieDetail = () => {
 
   return (
     <div className={styles.movieItem}>
-      <Counter currentPage={currentPage} totalPages={3} />
       <img src={movie.Poster} alt={movie.Title} className={styles.poster} />
       <h3 className={styles.title}>{movie.Title}</h3>
       <p className={styles.year}>
