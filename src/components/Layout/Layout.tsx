@@ -1,4 +1,4 @@
-
+// Layout.tsx
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "../Header/Header";
