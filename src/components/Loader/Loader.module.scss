@@ -1,0 +1,15 @@
+@use "/src/styles/Variables.scss" as *;
+@use "/src/styles/Mixins.scss" as *;
+@use "/src/styles/Fonts.scss" as *;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter {
+    font-size: 64px;
+    color: $color-accent;
+    @include font-black(64px, 1.6, 0);
+}

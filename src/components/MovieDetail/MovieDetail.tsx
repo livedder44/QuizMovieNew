@@ -2,6 +2,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./MovieDetail.module.scss";
+import Loader from "../Loader/Loader";
 
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
@@ -32,7 +33,7 @@ const MovieDetail = () => {
     fetchMovieDetails();
   }, [id]);
 
-  if (!movie) return <div>Loading...</div>;
+  if (!movie) return <div><Loader /></div>;
 
   const actorsArray = movie.Actors?.split(", ") || [];
   const displayedActors =

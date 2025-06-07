@@ -1,50 +1,46 @@
-import { useEffect, useState } from "react";
-import MovieList from "../MovieList/MovieList";
-import ErrorPage from "../ErrorPage/ErrorPage";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import MovieList from "../MovieList/MovieList";
 import styles from "./MovieResults.module.scss";
-
-type Props = {
-  movieTitle: string;
-  onResults: (found: boolean) => void;
-};
+import { setMovies } from "../../store/movieSlice";
 
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
-const MovieResults = ({ movieTitle, onResults }: Props) => {
-  const [movies, setMovies] = useState<any[]>([]);
-  const [error, setError] = useState(false);
-  const navigate = useNavigate(); 
+const MovieResults = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (!movieTitle) return;
+    sessionStorage.setItem("lastPage", "3"); 
+
+    const movieTitle = localStorage.getItem("query");
+    if (!movieTitle) {
+      navigate("/QuizMovieNew/error");
+      return;
+    }
 
     fetch(`https://www.omdbapi.com/?s=${movieTitle}&apikey=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.Response === "True") {
-          setMovies(data.Search);
-          setError(false);
-          onResults(true);
+          dispatch(setMovies(data.Search)); 
         } else {
-          setError(true);
-          onResults(false);
+          navigate("/QuizMovieNew/error");
         }
       })
       .catch(() => {
-        setError(true);
-        onResults(false);
+        navigate("/QuizMovieNew/error");
       });
-  }, [movieTitle, onResults]);
+  }, [dispatch, navigate]);
 
   const handleMovieClick = (id: string) => {
-    navigate(`/movie/${id}`);
+    navigate(`/QuizMovieNew/movie/${id}`);
   };
-
-  if (error) return <ErrorPage />;
 
   return (
     <div className={styles.movieResults}>
-      <MovieList movies={movies} onMovieClick={handleMovieClick} /> {}
+      <MovieList onMovieClick={handleMovieClick} />
     </div>
   );
 };

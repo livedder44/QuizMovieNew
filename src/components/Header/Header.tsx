@@ -6,18 +6,18 @@ import ProgressBar from '../ProgressBar/ProgressBar';
 import useProgress from '../../hooks/useProgress';
 
 const Header: React.FC = () => {
-  const { currentPage, totalPages, progress } = useProgress();
+  const { totalPages } = useProgress();
 
   return (
     <div className={styles.header}>
       <div className={styles.top}>
         <BtnBack />
         <div className={styles.right}>
-          <Counter currentPage={currentPage} totalPages={totalPages} />
+          <Counter  totalPages={totalPages} />
           <BurgerMenu />
         </div>
       </div>
-      <ProgressBar progress={progress} />
+      <ProgressBar  />
     </div>
   );
 };

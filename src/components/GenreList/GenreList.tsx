@@ -1,7 +1,7 @@
+import { useState, useEffect } from "react";
 import genres from "./GenreList.json";
 import GenreItem from "../GerneItem/GenreItem";
 import styles from "./GenreList.module.scss";
-
 
 type Genre = {
   id: string;
@@ -9,15 +9,20 @@ type Genre = {
   label: string;
 };
 
-type Props = {
-  genre: string;
-  setGenre: (id: string) => void;
-};
 
-const GenreList: React.FC<Props> = ({ genre, setGenre }) => {
+
+const GenreList = () => {
+  const [selected, setSelected] = useState<string | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("genre");
+    if (stored) setSelected(stored);
+  }, []);
+
   const handleSelect = (id: string) => {
-    // викликаємо навіть якщо genre === id
-    setGenre(id);
+    localStorage.setItem("genre", id);
+    setSelected(id);
+    window.dispatchEvent(new Event("localStorageChange"));
   };
 
   return (
@@ -28,7 +33,7 @@ const GenreList: React.FC<Props> = ({ genre, setGenre }) => {
           key={g.id}
           icon={g.icon}
           label={g.label}
-          selected={genre === g.id}
+          selected={selected === g.id}
           onClick={() => handleSelect(g.id)}
         />
       ))}

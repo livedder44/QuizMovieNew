@@ -1,21 +1,24 @@
 import styles from "./MovieList.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store";
 
 type MovieListProps = {
-  movies: any[];
   onMovieClick?: (id: string) => void;
 };
 
-const MovieList = ({ movies, onMovieClick }: MovieListProps) => {
+const MovieList = ({ onMovieClick }: MovieListProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const match = location.pathname.match(/page\/(\d+)/);
-  const currentPage = match ? parseInt(match[1], 10) : 1;
+  const movies = useSelector((state: RootState) => state.movies.movies);
+
+  const match = location.pathname.match(/\/(\d+)$/);
+  const currentPage = match ? parseInt(match[1], 10) : 3;
 
   const handleClick = (movie: any) => {
     sessionStorage.setItem("lastPage", String(currentPage));
-    onMovieClick?.(movie.imdbID); // динамічно викликаємо колбек
+    onMovieClick?.(movie.imdbID);
   };
 
   return (

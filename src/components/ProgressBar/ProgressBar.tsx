@@ -1,10 +1,14 @@
+import { useLocation } from "react-router-dom";
 import styles from "./ProgressBar.module.scss";
 
-type ProgressBarProps = {
-  progress: number;
-};
+const ProgressBar = () => {
+  const location = useLocation();
+  const match = location.pathname.match(/\/(\d+)$/);
+  const currentPage = match ? Number(match[1]) : 1;
 
-const ProgressBar = ({ progress }: ProgressBarProps) => {
+  const totalPages = 3;
+  const progress = Math.min((currentPage / totalPages) * 100, 100);
+
   return (
     <div className={styles["progress-bar-container"]}>
       <div className={styles["progress-bar"]}>

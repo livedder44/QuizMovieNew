@@ -7,7 +7,12 @@ type BtnProps = {
   label?: string;
 };
 
-const Btn: React.FC<BtnProps> = ({ onContinue, isHidden = false, isActive = false, label = "Continue" }) => {
+const Btn: React.FC<BtnProps> = ({
+  onContinue,
+  isHidden = false,
+  isActive = false,
+  label = "Continue",
+}) => {
   const isClickable = isActive || label === "Complete";
   const buttonClass = isClickable ? styles["btn-active"] : styles["btn-noactive"];
 
@@ -22,8 +27,20 @@ const Btn: React.FC<BtnProps> = ({ onContinue, isHidden = false, isActive = fals
           {label}
         </button>
       )}
+      {isHidden && (
+        <button
+          type="button"
+          className={`${styles.btn} ${buttonClass}`}
+          style={{ display: "none" }}
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          {label}
+        </button>
+      )}
     </div>
   );
 };
 
 export default Btn;
+
