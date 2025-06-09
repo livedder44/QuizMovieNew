@@ -1,8 +1,8 @@
 // Layout.tsx
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Header from "../Header/Header";
-import BtnContinue from "../BtnContinue/BtnContinue";
+import Header from "../components/Header/Header";
+import BtnContinue from "../components/BtnContinue/BtnContinue";
 import styles from "./Layout.module.scss";
 import AnimatedOutlet from "./AnimatedOutlet";
 

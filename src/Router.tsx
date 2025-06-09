@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
+import Layout from "./layouts/Layout";
 import GenreList from "./components/GenreList/GenreList";
 import MovieSearch from "./components/MovieInput/MovieSearch";
 import MovieResults from "./components/MovieResults/MovieResults";

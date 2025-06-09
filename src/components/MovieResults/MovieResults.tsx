@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import MovieList from "../MovieList/MovieList";
 import styles from "./MovieResults.module.scss";
@@ -10,13 +10,21 @@ const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 const MovieResults = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  // Витягуємо номер сторінки з шляху /QuizMovieNew/3
+  const match = location.pathname.match(/\/(\d+)$/);
+  const currentPage = match ? Number(match[1]) : 1;
+
+
 
   useEffect(() => {
-    sessionStorage.setItem("lastPage", "3"); 
+    // Зберігаємо останню валідну сторінку
+    sessionStorage.setItem("lastPage",currentPage.toString());
 
     const movieTitle = localStorage.getItem("query");
     if (!movieTitle) {
-      navigate("/QuizMovieNew/error");
+      navigate(`/QuizMovieNew/error?from=${currentPage}`);
       return;
     }
 
@@ -24,18 +32,18 @@ const MovieResults = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.Response === "True") {
-          dispatch(setMovies(data.Search)); 
+          dispatch(setMovies(data.Search));
         } else {
-          navigate("/QuizMovieNew/error");
+          navigate(`/QuizMovieNew/error?from=${currentPage}`);
         }
       })
       .catch(() => {
-        navigate("/QuizMovieNew/error");
+        navigate(`/QuizMovieNew/error?from=${currentPage}`);
       });
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, currentPage]);
 
   const handleMovieClick = (id: string) => {
-    navigate(`/QuizMovieNew/movie/${id}`);
+    navigate(`/QuizMovieNew/movie/${id}?from=${currentPage}`);
   };
 
   return (

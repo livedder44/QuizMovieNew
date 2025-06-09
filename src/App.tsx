@@ -1,22 +1,13 @@
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import styles from "./App.module.scss";
-import Header from "./components/Header/Header";
-import PageRouter from "./PageRouter";
-import MovieDetail from "./components/MovieDetail/MovieDetail";
+// App.tsx
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Router";
 
-function App() {
-  return (
-    <Router>
-      <div className={styles.wrapper}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<PageRouter defaultPage={1} />} />
-          <Route path="/page/:pageId" element={<PageRouter />} />
-          <Route path="/movie/:id" element={<MovieDetail />} /> {/* ✅ додано */}
-        </Routes>
-      </div>
-    </Router>
-  );
-}
+const App = () => (
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);
 
 export default App;

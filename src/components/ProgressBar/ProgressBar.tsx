@@ -1,12 +1,15 @@
 import { useLocation } from "react-router-dom";
 import styles from "./ProgressBar.module.scss";
+import { getTotalPages } from "../../utilts/getTotalPages";
 
 const ProgressBar = () => {
   const location = useLocation();
-  const match = location.pathname.match(/\/(\d+)$/);
+  const totalPages = getTotalPages();
+
+  const match =
+    location.pathname.match(/\/(\d+)$/) || location.search.match(/from=(\d+)/);
   const currentPage = match ? Number(match[1]) : 1;
 
-  const totalPages = 3;
   const progress = Math.min((currentPage / totalPages) * 100, 100);
 
   return (

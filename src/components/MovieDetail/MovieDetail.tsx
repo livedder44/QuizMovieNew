@@ -1,8 +1,8 @@
-// src/components/MovieDetail/MovieDetail.tsx
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./MovieDetail.module.scss";
 import Loader from "../Loader/Loader";
+import { getTotalPages } from "../../utilts/getTotalPages";
 
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
@@ -17,7 +17,14 @@ interface Movie {
 
 const MovieDetail = () => {
   const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
   const [movie, setMovie] = useState<Movie | null>(null);
+
+  const fromParam = searchParams.get("from");
+  const match = location.pathname.match(/\/(\d+)$/);
+  const currentPage = fromParam ? Number(fromParam) : match ? Number(match[1]) : 1;
+  const totalPages = getTotalPages();
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -56,6 +63,9 @@ const MovieDetail = () => {
       </p>
       <p className={styles.actors}>
         <strong className={styles.strong}>Actors:</strong> {displayedActors}
+      </p>
+      <p className={styles.counter}>
+        {Math.round((currentPage / totalPages) * 100)}%
       </p>
     </div>
   );
