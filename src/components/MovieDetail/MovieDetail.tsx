@@ -64,9 +64,6 @@ const MovieDetail = () => {
       <p className={styles.actors}>
         <strong className={styles.strong}>Actors:</strong> {displayedActors}
       </p>
-      <p className={styles.counter}>
-        {Math.round((currentPage / totalPages) * 100)}%
-      </p>
     </div>
   );
 };
